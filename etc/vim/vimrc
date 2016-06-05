@@ -1,0 +1,239 @@
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'tomasr/molokai'
+Plugin 'Mizuchi/STL-Syntax'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'kshenoy/vim-signature'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+"Vim plugin, provides insert mode auto-completion for quotes, parens,brackets, etc.
+Plugin 'Raimondi/delimitMate'                 
+
+call vundle#end()
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           YouCompleteMe:
+"
+"
+
+let g:ycm_complete_in_comments = 1
+let g:ycm_error_symbol = '>'
+let g:ycm_warning_symbol = '*'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_key_invoke_completion = '<C-n>'
+let g:ycm_key_detailed_diagnostics = '<leader>d'
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+
+
+nnoremap <F4> :YcmDiags<CR>
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <C-g> :YcmCompleter GoTo<CR>
+nnoremap <C-t> :YcmCompleter GetType<CR>
+nnoremap <leader>ycmp :YcmCompleter GetParent<CR>
+nnoremap <leader>ycmd :YcmCompleter GetDoc<CR>
+nnoremap <leader>ycmf :YcmCompleter FixIt<CR>
+
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           NERDTree:
+"
+"
+
+"autocmd vimenter * NERDTree
+
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+map <C-n> :NERDTreeToggle<CR>
+
+"
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           Powerline:
+"
+"
+let g:Powerline_colorscheme = 'solarized256'
+let g:Powerline_symbols = 'fancy'
+
+"
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           vim-signture:
+"
+
+let g:SignatureForceMarkerPlacement=1
+
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           Markdown:
+"
+let g:vim_markdown_frontmatter = 1
+"
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"           inoremap:
+"
+inoremap jk <Esc>
+"
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 设置超链接显示
+"set conceallevel=0
+"hi link HelpBar Normal
+"hi link HelpStar Normal
+
+
+" 关闭兼容模式
+set nocompatible
+
+" 开启实时搜索功能
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase
+
+"VIM自身命令行模式智能补全
+set wildmenu
+
+" 配色方案
+set t_Co=256
+set background=dark
+colorscheme molokai
+
+"set background=light
+"colorscheme solarized
+"let g:solarized_termcolors=256
+
+" 总是显示状态栏
+set laststatus=2
+
+" 显示光标当前位置
+set ruler
+
+" 开启行号显示
+set number
+" 设置行号宽度
+set numberwidth=5
+
+" 设置上下保留10行
+set scrolloff=10
+
+" 高亮显示当前行/列
+set cursorline
+set cursorcolumn
+
+set encoding=utf-8
+
+" 高亮显示搜索结果
+set hlsearch
+
+" 开启语法高亮功能
+syntax enable
+
+" 允许用指定语法高亮配色方案替换默认方案
+syntax on
+
+" 将制表符扩展为空格
+set expandtab
+
+" 设置编辑时制表符占用空格数
+set tabstop=4
+
+" 设置格式化时制表符占用空格数
+set shiftwidth=4
+
+" 让VIM把连续数量的空格视为一个制表符
+set softtabstop=4
+
+set cindent
+set autoindent
+set smartindent
+set cinoptions={0,:0,g0,l1,t0,(0
+set backspace=2
+
+" 关闭swap文件
+"set noswapfile
+
+set colorcolumn=80
+
+" za, 打开或关闭折叠当前折叠
+" zM, 关闭所有折叠
+" zR, 打开所有折叠
+" 基于语法进行代码折叠
+set foldmethod=syntax
+" 启动VIM时关闭代码折叠
+set nofoldenable
+
+" 设置map leader
+let mapleader = '\'
+
+vnoremap <leader>ac :s/^/\/\/<CR><C-l>
+vnoremap <leader>uc :s/^\/\///<CR>
+
+" ctrl + l 清楚查找匹配的高亮显示
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" ctrl + a 使前一个单词变为大写 
+inoremap <C-a> <C-[>gUiwea
+
+
+
+autocmd BufNewFile *.cpp,*.h exec ":call InitFile()"
+autocmd BufNewFile *.sh      exec ":call InitShellFile()"
+
+func InitShellFile()
+    call setline(1,            "#!/bin/bash")
+    call append(line("."),     "")
+    call append(line(".") + 1, "#")
+    call append(line(".") + 2, "# @author: tensorchen")
+    call append(line(".") + 3, "# @time: ".strftime("%Y年%m月%d日"))
+    call append(line(".") + 4, "#")
+    call append(line(".") + 5, "")
+
+    normal G
+endfunc
+
+func InitFile()
+    call SetComment()
+    call SetCppDefineHeader()
+endfunc
+
+func SetComment()
+    call setline(1,            "//")
+    call append(line("."),     "// @author: tensorchen")
+    call append(line(".") + 1, "// @time: ".strftime("%Y年%m月%d日"))
+    call append(line(".") + 2, "//") 
+    call append(line(".") + 3, "") 
+
+    autocmd BufNewFile * normal G
+endfunc
+
+func SetCppDefineHeader()
+
+endfunc
